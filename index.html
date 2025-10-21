@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The New Court: Capturing the Next Generation of NBA Fans</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Framer Motion -->
+    <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.umd.js"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #ffffff;
+            color: #1a1a1a;
+            font-family: 'Roboto', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        /* Define custom NBA colors for Tailwind */
+        .bg-nba-blue { background-color: #1D428A; }
+        .text-nba-blue { color: #1D428A; }
+        .border-nba-blue { border-color: #1D428A; }
+        .bg-nba-red { background-color: #CE1141; }
+        .text-nba-red { color: #CE1141; }
+        .border-nba-red { border-color: #CE1141; }
+        
+        .font-heading {
+            font-family: 'Teko', sans-serif;
+            font-weight: 600;
+        }
+
+        .giant-text {
+            font-size: clamp(6rem, 20vw, 18rem);
+            line-height: 0.8;
+        }
+        
+        .medium-giant-text {
+            font-size: clamp(4rem, 15vw, 12rem);
+            line-height: 0.8;
+        }
+
+        .highlight-text-blue {
+             background: linear-gradient(180deg, rgba(29, 66, 138, 0.8) 0%, rgba(29, 66, 138, 0) 100%);
+             -webkit-background-clip: text;
+             -webkit-text-fill-color: transparent;
+             color: transparent;
+        }
+        
+        .highlight-text-red {
+             background: linear-gradient(180deg, rgba(206, 17, 65, 0.8) 0%, rgba(206, 17, 65, 0) 100%);
+             -webkit-background-clip: text;
+             -webkit-text-fill-color: transparent;
+             color: transparent;
+        }
+        
+        .gradient-bg-blue {
+            background: radial-gradient(circle at 50% 50%, rgba(29, 66, 138, 0.15) 0%, rgba(29, 66, 138, 0) 70%);
+        }
+
+        .gradient-bg-red {
+            background: radial-gradient(circle at 50% 50%, rgba(206, 17, 65, 0.15) 0%, rgba(206, 17, 65, 0) 70%);
+        }
+
+        .table-header {
+            @apply px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider font-heading;
+        }
+
+        .table-cell {
+            @apply px-6 py-4 whitespace-nowrap text-sm text-gray-800;
+        }
+        
+        /* Print-specific styles */
+        @media print {
+            /* Force background colors and images to print */
+            body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            
+            /* Reset layout for all sections to a simple block flow */
+            section {
+                display: block !important;
+                position: static !important; /* Override relative positioning */
+                min-height: auto !important;
+                height: auto !important;
+                padding-top: 2rem !important; /* Reduce padding for print */
+                padding-bottom: 2rem !important;
+                overflow: visible !important;
+                page-break-inside: avoid; /* Try to keep sections on one page */
+                page-break-after: always; /* Start new section on new page */
+            }
+
+            /* Remove page break after the last section */
+            section:last-of-type, footer {
+                 page-break-after: auto;
+            }
+            
+            /* Ensure inner wrappers flow correctly */
+            section > div {
+                display: block !important;
+                position: static !important;
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+
+            /* Ensure all animated content is visible and static */
+            motion\.div, div[data-motion-id] {
+                opacity: 1 !important;
+                transform: none !important;
+                animation: none !important;
+                position: static !important; /* Reset any absolute positioning from animations */
+            }
+
+            /* Hide elements that are irrelevant for print */
+            .print-hidden {
+                display: none !important;
+            }
+
+            /* Adjust font sizes for readability on paper */
+            .giant-text {
+                font-size: 6rem !important;
+                line-height: 1 !important;
+            }
+            .medium-giant-text {
+                font-size: 4rem !important;
+                line-height: 1 !important;
+            }
+            
+            /* Ensure images don't break layout */
+            img {
+                max-width: 100% !important;
+                height: auto !important;
+            }
+            
+            /* Reset grid layouts to simple blocks */
+            .grid {
+                display: block !important;
+            }
+
+            /* Make sure table prints correctly */
+            table, tr, td, th {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div id="app">
+        <!-- Hero Section -->
+        <section class="h-screen w-full flex flex-col justify-center items-center text-center p-4 overflow-hidden">
+            <motion.div :initial="{ opacity: 0, y: 50 }" :animate="{ opacity: 1, y: 0 }" :transition="{ duration: 0.8 }">
+                <h1 class="font-heading text-6xl md:text-8xl lg:text-9xl tracking-tighter">THE NEW COURT</h1>
+                <p class="mt-4 text-lg md:text-2xl text-gray-600 max-w-3xl mx-auto">
+                    Capturing the Next Generation of NBA Fans Through Digital Interaction and Data-Driven Storytelling with ALIV.
+                </p>
+            </motion.div>
+             <motion.div class="absolute bottom-10 text-gray-500 text-sm print-hidden" :initial="{ opacity: 0}" :animate="{ opacity: 1 }" :transition="{ duration: 1, delay: 1 }">
+                <i class="fas fa-arrow-down mr-2 animate-bounce"></i> Scroll to explore
+            </motion.div>
+        </section>
+        
+        <!-- Section 1: The Misleading Narrative -->
+        <section class="relative min-h-screen w-full flex justify-center items-center py-20 px-4 gradient-bg-red">
+            <motion.div class="absolute top-8 right-8 opacity-20 print-hidden" :initial="{ opacity: 0 }" :while-in-view="{ opacity: 0.2 }" :viewport="{ once: true, amount: 0.5 }" :transition="{ duration: 1 }"> <img src="image/new logo.png" alt="ALIV Logo" class="h-12 w-auto"> </motion.div>
+            <div class="text-center w-full max-w-6xl mx-auto">
+                <motion.p class="text-2xl md:text-4xl font-heading text-nba-red mb-8"
+                    :initial="{ opacity: 0, y: 50 }" :while-in-view="{ opacity: 1, y: 0 }" :viewport="{ once: true, amount: 0.6 }" :transition="{ duration: 0.5 }">
+                    The Surface-Level Story
+                </motion.p>
+                <motion.h2 class="font-heading giant-text"
+                    :initial="{ opacity: 0, scale: 0.8 }" :while-in-view="{ opacity: 1, scale: 1 }" :viewport="{ once: true, amount: 0.6 }" :transition="{ duration: 0.7 }">
+                    <span class="highlight-text-red">-48%</span>
+                </motion.h2>
+                <motion.p class="text-xl md:text-3xl text-gray-700 max-w-3xl mx-auto mt-8"
+                    :initial="{ opacity: 0, y: 50 }" :while-in-view="{ opacity: 1, y: 0 }" :viewport="{ once: true, amount: 0.6 }" :transition="{ duration: 0.5, delay: 0.2 }">
+                    The widely cited, context-lacking drop in NBA ratings since the 2011-2012 season. But this number doesn't tell the whole story.
+                </motion.p>
+            </div>
+        </section>
+
+        <!-- Section 2: NBA Finals Viewership Trend -->
+        <section class="relative py-24 px-4 bg-gray-50">
+            <motion.div class="absolute top-8 right-8 opacity-20 print-hidden" :initial="{ opacity: 0 }" :while-in-view="{ opacity: 0.2 }" :viewport="{ once: true, amount: 0.5 }" :transition="{ duration: 1 }"> <img src="image/new logo.png" alt="ALIV Logo" class="h-12 w-auto"> </motion.div>
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center">
+                    <motion.h2 class="font-heading text-5xl md:text-7xl"
+                        :initial="{ opacity: 0, y: 50 }" :while-in-view="{ opacity: 1, y: 0 }" :viewport="{ once: true, amount: 0.8 }" :transition="{ duration: 0.6 }">
+                        Finals Viewership: A Deeper Look
+                    </motion.h2>
+                    <motion.p class="text-xl text-gray-600 mt-4 max-w-3xl mx-auto"
+                        :initial="{ opacity: 0, y: 50 }" :while-in-view="{ opacity: 1, y: 0 }" :viewport="{ once: true, amount: 0.8 }" :transition="{ duration: 0.6, delay: 0.2 }">
+                        This data shows traditional broadcast viewers, but the full story of engagement is spread across countless digital touchpoints not measured here.
+                    </motion.p>
+                </div>
+                
+                <div class="mt-16 flex justify-center">
+                    <!-- Detailed Table -->
+                    <motion.div class="w-full max-w-5xl overflow-x-auto" :initial="{ opacity: 0, y: 50 }" :while-in-view="{ opacity: 1, y: 0 }" :viewport="{ once: true, amount: 0.2 }" :transition="{ duration: 0.8 }">
+                        <table class="min-w-full divide-y divide-gray-200 border">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th scope="col" class="table-header">Year & Matchup</th>
+                                    <th scope="col" class="table-header text-right">Avg. Rating</th>
+                                    <th scope="col" class="table-header text-right">Avg. Viewers (M)</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr v-for="item in finalsData" :key="item.year" class="hover:bg-gray-50">
+                                    <td class="table-cell">
+                                        <span class="font-bold">{{ item.year }}</span>
+                                        <p class="text-xs text-gray-500">{{ item.matchup }}</p>
+                                    </td>
+                                    <td class="table-cell font-heading text-lg text-right text-gray-600">{{ item.rating }}</td>
+                                    <td class="table-cell font-heading text-lg text-right" :class="item.viewers > 15 ? 'text-nba-blue' : 'text-nba-red'">{{ item.viewers }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </motion.div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Deconstructing the Narrative -->
+        <section class="relative min-h-screen py-20 px-4 overflow-hidden">
+            <motion.div class="absolute top-8 right-8 opacity-20 print-hidden" :initial="{ opacity: 0 }" :while-in-view="{ opacity: 0.2 }" :viewport="{ once: true, amount: 0.5 }" :transition="{ duration: 1 }"> <img src="image/new logo.png" alt="ALIV Logo" class="h-12 w-auto"> </motion.div>
+            <div class="max-w-7xl mx-auto">
+                 <motion.div class="text-center lg:text-left"
+                    :initial="{ opacity: 0, x: -100 }" :while-in-view="{ opacity: 1, x: 0 }" :viewport="{ once: true, amount: 0.5 }" :transition="{ duration: 0.8 }">
+                    <h2 class="font-heading text-5xl md:text-7xl">It's Not a <span class="text-nba-blue">Decline</span>.</h2>
+                    <h2 class="font-heading text-5xl md:text-7xl mt-2">It's a Media <span class="text-nba-red">Revolution</span>.</h2>
+                    <p class="mt-8 text-lg text-gray-600 max-w-3xl">
+                        The "ratings decline" is a symptom of a larger, industry-wide disruption. The issue isn't basketball's appeal; it's the collapse of the traditional media infrastructure it's delivered on.
+                    </p>
+                 </motion.div>
+                <div class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    <motion.div
+                        :initial="{ opacity: 0, y: 50 }" :while-in-view="{ opacity: 1, y: 0 }" :viewport="{ once: true }" :transition="{ duration: 0.5, delay: 0.2 }">
+                        <h3 class="font-heading text-3xl text-nba-blue">An Industry-Wide Trend</h3>
+                        <p class="text-gray-600 mt-2">The NBA is not alone. Other major leagues have seen similar or worse declines in the same period:</p>
+                        <ul class="mt-4 space-y-2">
+                            <li class="flex items-center"><i class="fas fa-arrow-down text-nba-red mr-3"></i> NCAA Men's Basketball: <span class="font-bold ml-2">-21%</span></li>
+                            <li class="flex items-center"><i class="fas fa-arrow-down text-nba-red mr-3"></i> National Hockey League (NHL): <span class="font-bold ml-2">-28%</span></li>
+                             <li class="flex items-center"><i class="fas fa-arrow-down text-nba-red mr-3"></i> National Football League (NFL): <span class="font-bold ml-2">-2% (2024)</span></li>
+                        </ul>
+                    </motion.div>
+                     <motion.div
+                        :initial="{ opacity: 0, y: 50 }" :while-in-view="{ opacity: 1, y: 0 }" :viewport="{ once: true }" :transition="{ duration: 0.5, delay: 0.4 }">
+                        <h3 class="font-heading text-3xl text-nba-red">The Platform is Shrinking</h3>
+                        <p class="text-gray-600 mt-2">The most compelling evidence is the decay of traditional TV:</p>
+                         <ul class="mt-4 space-y-2">
+                            <li class="flex items-center"><i class="fas fa-tv text-gray-500 mr-3"></i> Total audience using traditional TV: <span class="font-bold ml-2">-52% since 2011</span></li>
+                            <li class="flex items-center"><i class="fas fa-satellite-dish text-gray-500 mr-3"></i> Cable TV households: <span class="font-bold ml-2">Down by 1/3</span></li>
+                        </ul>
+                    </motion.div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: The Financial Paradox -->
+         <section class="relative min-h-screen w-full flex justify-center items-center py-20 px-4 gradient-bg-blue">
+            <motion.div class="absolute top-8 right-8 opacity-20 print-hidden" :initial="{ opacity: 0 }" :while-in-view="{ opacity: 0.2 }" :viewport="{ once: true, amount: 0.5 }" :transition="{ duration: 1 }"> <img src="image/new logo.png" alt="ALIV Logo" class="h-12 w-auto"> </motion.div>
+            <div class="text-center w-full max-w-6xl mx-auto">
+                 <motion.p class="text-2xl md:text-4xl font-heading text-nba-blue mb-8"
+                    :initial="{ opacity: 0, y: 50 }" :while-in-view="{ opacity: 1, y: 0 }" :viewport="{ once: true, amount: 0.6 }" :transition="{ duration: 0.5 }">
+                    The Financial Paradox
+                </motion.p>
+                <motion.h2 class="font-heading giant-text"
+                     :initial="{ opacity: 0, scale: 0.8 }" :while-in-view="{ opacity: 1, scale: 1 }" :viewport="{ once: true, amount: 0.6 }" :transition="{ duration: 0.7 }">
+                    <span class="highlight-text-blue">$76B</span>
+                </motion.h2>
+                <motion.p class="text-xl md:text-3xl text-gray-700 max-w-4xl mx-auto mt-8"
+                     :initial="{ opacity: 0, y: 50 }" :while-in-view="{ opacity: 1, y: 0 }" :viewport="{ once: true, amount: 0.6 }" :transition="{ duration: 0.5, delay: 0.2 }">
+                    The value of the NBA's 11-year media rights deal. Media giants like ESPN, NBC, and Amazon are not buying TV slots; they are acquiring premium, must-have content to fuel their primary growth engine: streaming services.
+                </motion.p>
+            </div>
+        </section>
+
+        <!-- Section 5: The Gen Z Fan -->
+        <section class="relative min-h-screen py-24 px-4">
+             <motion.div class="absolute top-8 right-8 opacity-20 print-hidden" :initial="{ opacity: 0 }" :while-in-view="{ opacity: 0.2 }" :viewport="{ once: true, amount: 0.5 }" :transition="{ duration: 1 }"> <img src="image/new logo.png" alt="ALIV Logo" class="h-12 w-auto"> </motion.div>
+             <div class="max-w-7xl mx-auto">
+                <motion.div class="text-center"
+                    :initial="{ opacity: 0, y: 50 }" :while-in-view="{ opacity: 1, y: 0 }" :viewport="{ once: true, amount: 0.8 }" :transition="{ duration: 0.6 }">
+                    <h2 class="font-heading text-5xl md:text-7xl">Decoding the Gen Z Fan</h2>
+                    <p class="text-xl text-gray-600 mt-4 max-w-3xl mx-auto">They haven't stopped being fans. They've just <span class="font-bold text-nba-red">unbundled</span> fandom from the traditional 2.5-hour live broadcast.</p>
+                </motion.div>
+
+                <div class="mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-12">
+                    <motion.div class="p-8 border-2 border-gray-100 rounded-2xl" :initial="{ opacity: 0, y: 50 }" :while-in-view="{ opacity: 1, y: 0 }" :viewport="{ once: true }" :transition="{ duration: 0.5, delay: 0.1 }">
+                        <div class="text-6xl text-nba-blue mb-4"><i class="fas fa-mobile-alt"></i></div>
+                        <h3 class="font-heading text-3xl">Digital & Mobile Dominance</h3>
+                        <p class="text-gray-600 mt-2">The living room has been replaced by the pocket. Digital isn't a supplement; it's the primary arena.</p>
+                        <ul class="mt-4 space-y-3 text-left">
+                            <li class="flex items-start"><i class="fas fa-check-circle text-nba-blue mt-1 mr-3"></i><div><span class="font-bold text-nba-blue text-lg">93%</span> consume sports via digital channels.</div></li>
+                            <li class="flex items-start"><i class="fas fa-check-circle text-nba-blue mt-1 mr-3"></i><div><span class="font-bold text-nba-blue text-lg">67%</span> prefer watching on their phones (vs. 23% for Gen X).</div></li>
+                            <li class="flex items-start"><i class="fas fa-check-circle text-nba-blue mt-1 mr-3"></i><div><span class="font-bold text-nba-blue text-lg">38%</span> consume ALL content on their phones.</div></li>
+                        </ul>
+                    </motion.div>
+                     <motion.div class="p-8 border-2 border-gray-100 rounded-2xl" :initial="{ opacity: 0, y: 50 }" :while-in-view="{ opacity: 1, y: 0 }" :viewport="{ once: true }" :transition="{ duration: 0.5, delay: 0.2 }">
+                        <div class="text-6xl text-nba-red mb-4"><i class="fas fa-bolt"></i></div>
+                        <h3 class="font-heading text-3xl">The Attention Economy</h3>
+                        <p class="text-gray-600 mt-2">In an ocean of content, long, slow-paced broadcasts are losing to "snackable" formats.</p>
+                        <ul class="mt-4 space-y-3 text-left">
+                            <li class="flex items-start"><i class="fas fa-check-circle text-nba-red mt-1 mr-3"></i><div>Only <span class="font-bold text-nba-red text-lg">19%</span> of young fans watch full games at home.</div></li>
+                            <li class="flex items-start"><i class="fas fa-check-circle text-nba-red mt-1 mr-3"></i><div><span class="font-bold text-nba-red text-lg">54%</span> of young NBA fans prefer highlights to the full game.</div></li>
+                            <li class="flex items-start"><i class="fas fa-check-circle text-nba-red mt-1 mr-3"></i><div>Demand for short-form sports content is projected to grow over <span class="font-bold text-nba-red text-lg">100%</span>.</div></li>
+                        </ul>
+                    </motion.div>
+                     <motion.div class="p-8 border-2 border-gray-100 rounded-2xl" :initial="{ opacity: 0, y: 50 }" :while-in-view="{ opacity: 1, y: 0 }" :viewport="{ once: true }" :transition="{ duration: 0.5, delay: 0.3 }">
+                        <div class="text-6xl text-gray-500 mb-4"><i class="fas fa-user-check"></i></div>
+                        <h3 class="font-heading text-3xl">Authenticity & Connection</h3>
+                        <p class="text-gray-600 mt-2">Fandom is now about culture, community, and connection, not just watching the game.</p>
+                         <ul class="mt-4 space-y-3 text-left">
+                            <li class="flex items-start"><i class="fas fa-check-circle text-gray-500 mt-1 mr-3"></i><div>Athlete social content is the <span class="font-bold text-gray-700 text-lg">#1 driver</span> of Gen Z engagement.</div></li>
+                            <li class="flex items-start"><i class="fas fa-check-circle text-gray-500 mt-1 mr-3"></i><div><span class="font-bold text-gray-700 text-lg">62%</span> are more likely to buy a product endorsed by a favorite athlete.</div></li>
+                            <li class="flex items-start"><i class="fas fa-check-circle text-gray-500 mt-1 mr-3"></i><div>They crave authentic, behind-the-scenes content over polished PR interviews.</div></li>
+                        </ul>
+                    </motion.div>
+                     <motion.div class="p-8 border-2 border-gray-100 rounded-2xl" :initial="{ opacity: 0, y: 50 }" :while-in-view="{ opacity: 1, y: 0 }" :viewport="{ once: true }" :transition="{ duration: 0.5, delay: 0.4 }">
+                        <div class="text-6xl text-yellow-500 mb-4"><i class="fas fa-comments"></i></div>
+                        <h3 class="font-heading text-3xl">Social & Interactive Viewing</h3>
+                        <p class="text-gray-600 mt-2">Watching alone doesn't mean a solo experience. The second screen is the new stadium.</p>
+                         <ul class="mt-4 space-y-3 text-left">
+                            <li class="flex items-start"><i class="fas fa-check-circle text-yellow-500 mt-1 mr-3"></i><div><span class="font-bold text-yellow-600 text-lg">93%</span> use a second screen while watching live games for social media, stats, or food delivery.</div></li>
+                            <li class="flex items-start"><i class="fas fa-check-circle text-yellow-500 mt-1 mr-3"></i><div><span class="font-bold text-yellow-600 text-lg">63%</span> say visual elements like AR graphics would make them watch longer.</div></li>
+                             <li class="flex items-start"><i class="fas fa-check-circle text-yellow-500 mt-1 mr-3"></i><div>News comes from YouTube (31%), Instagram (26%), and TikTok (24%), not just ESPN.</div></li>
+                        </ul>
+                    </motion.div>
+                </div>
+             </div>
+        </section>
+        
+        <!-- Section 6: The New Playbook -->
+        <section class="relative min-h-screen py-24 px-4 bg-gray-50">
+            <motion.div class="absolute top-8 right-8 opacity-20 print-hidden" :initial="{ opacity: 0 }" :while-in-view="{ opacity: 0.2 }" :viewport="{ once: true, amount: 0.5 }" :transition="{ duration: 1 }"> <img src="image/new logo.png" alt="ALIV Logo" class="h-12 w-auto"> </motion.div>
+            <div class="max-w-7xl mx-auto">
+                <motion.div class="text-center"
+                    :initial="{ opacity: 0, y: 50 }" :while-in-view="{ opacity: 1, y: 0 }" :viewport="{ once: true, amount: 0.8 }" :transition="{ duration: 0.6 }">
+                    <h2 class="font-heading text-5xl md:text-7xl">The New Playbook</h2>
+                    <p class="text-xl text-gray-600 mt-4 max-w-3xl mx-auto">Adopt the blueprints of the platforms where Gen Z spends their time and money.</p>
+                </motion.div>
+
+                <div class="mt-20">
+                    <motion.div 
+                        class="bg-white p-8 md:p-12 rounded-3xl shadow-xl border border-gray-100 flex flex-col md:flex-row items-center gap-8 md:gap-12"
+                        :initial="{ opacity: 0, y: 50 }" 
+                        :while-in-view="{ opacity: 1, y: 0 }" 
+                        :viewport="{ once: true, amount: 0.5 }" 
+                        :transition="{ duration: 0.8 }">
+                        
+                        <!-- Left column for icons -->
+                        <div class="text-gray-200 text-5xl md:text-6xl text-center">
+                            <i class="fab fa-tiktok"></i>
+                            <i class="fab fa-twitch mt-4 block"></i>
+                        </div>
+
+                        <!-- Right column for content -->
+                        <div class="flex-1">
+                            <h3 class="font-heading text-3xl md:text-4xl text-nba-blue">The TikTok & Twitch Blueprint</h3>
+                            <p class="mt-4 text-lg text-gray-700">These aren't just apps; they are massive economies built on engagement. They offer a proven model for direct-to-fan monetization and interaction.</p>
+                            <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-8">
+                                <div class="p-6 rounded-lg bg-gray-50 border">
+                                    <p class="font-heading text-4xl text-nba-blue">95</p>
+                                    <p class="text-sm text-gray-600">Avg. minutes spent per day on TikTok & Twitch by users.</p>
+                                </div>
+                                <div class="p-6 rounded-lg bg-gray-50 border">
+                                    <p class="font-heading text-4xl text-nba-red">$10M</p>
+                                    <p class="text-sm text-gray-600">Generated daily by TikTok creators from fan gifts during livestreams.</p>
+                                </div>
+                            </div>
+                            <p class="mt-8 text-gray-600">The key is a shift from passive viewing to active participation. Features like live chat, real-time polls, and AR graphics are no longer novelties—they are expectations.</p>
+                        </div>
+                    </motion.div>
+                </div>
+                
+                <!-- Image Showcase Section -->
+                <div class="mt-24">
+                    <motion.div class="text-center mb-12" :initial="{ opacity: 0, y: 50 }" :while-in-view="{ opacity: 1, y: 0 }" :viewport="{ once: true, amount: 0.8 }" :transition="{ duration: 0.6 }">
+                        <h3 class="font-heading text-4xl md:text-5xl">Real-World Examples</h3>
+                        <p class="text-lg text-gray-600 mt-2">Screenshots showcasing interactive features on major platforms.</p>
+                    </motion.div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                        <!-- YouTube -->
+                        <motion.div :initial="{ opacity: 0, y: 50 }" :while-in-view="{ opacity: 1, y: 0 }" :viewport="{ once: true }" :transition="{ duration: 0.5, delay: 0.1 }">
+                            <div class="bg-white p-3 rounded-2xl shadow-lg border aspect-[9/19.5]">
+                                <img src="image/youtube.png" alt="YouTube Live Chat Screenshot" class="rounded-lg w-full h-full object-cover">
+                            </div>
+                            <p class="text-center mt-4 text-sm font-bold text-gray-700">YouTube: Real-time Chat & Super Chat</p>
+                        </motion.div>
+                        <!-- Twitch -->
+                        <motion.div :initial="{ opacity: 0, y: 50 }" :while-in-view="{ opacity: 1, y: 0 }" :viewport="{ once: true }" :transition="{ duration: 0.5, delay: 0.2 }">
+                            <div class="bg-white p-3 rounded-2xl shadow-lg border aspect-[9/19.5]">
+                                <img src="image/twitch.png" alt="Twitch Channel Points Screenshot" class="rounded-lg w-full h-full object-cover">
+                            </div>
+                            <p class="text-center mt-4 text-sm font-bold text-gray-700">Twitch: Channel Points & Predictions</p>
+                        </motion.div>
+                        <!-- TikTok PK -->
+                        <motion.div :initial="{ opacity: 0, y: 50 }" :while-in-view="{ opacity: 1, y: 0 }" :viewport="{ once: true }" :transition="{ duration: 0.5, delay: 0.3 }">
+                            <div class="bg-white p-3 rounded-2xl shadow-lg border aspect-[9/19.5]">
+                                <img src="image/tiktok.png" alt="TikTok PK Battle Screenshot" class="rounded-lg w-full h-full object-cover">
+                            </div>
+                            <p class="text-center mt-4 text-sm font-bold text-gray-700">TikTok: Live "PK" Battles</p>
+                        </motion.div>
+                        <!-- TikTok Gift -->
+                        <motion.div :initial="{ opacity: 0, y: 50 }" :while-in-view="{ opacity: 1, y: 0 }" :viewport="{ once: true }" :transition="{ duration: 0.5, delay: 0.4 }">
+                            <div class="bg-white p-3 rounded-2xl shadow-lg border aspect-[9/19.5]">
+                                <img src="image/tip.png" alt="TikTok Gifting Screenshot" class="rounded-lg w-full h-full object-cover">
+                            </div>
+                            <p class="text-center mt-4 text-sm font-bold text-gray-700">TikTok: Virtual Gifting Economy</p>
+                        </motion.div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        
+        <!-- Section 7: Gamifying Fandom -->
+        <section class="relative min-h-screen py-24 px-4">
+            <motion.div class="absolute top-8 right-8 opacity-20 print-hidden" :initial="{ opacity: 0 }" :while-in-view="{ opacity: 0.2 }" :viewport="{ once: true, amount: 0.5 }" :transition="{ duration: 1 }"> <img src="image/new logo.png" alt="ALIV Logo" class="h-12 w-auto"> </motion.div>
+            <div class="max-w-7xl mx-auto">
+                <motion.div class="text-center"
+                    :initial="{ opacity: 0, y: 50 }" :while-in-view="{ opacity: 1, y: 0 }" :viewport="{ once: true, amount: 0.8 }" :transition="{ duration: 0.6 }">
+                    <h2 class="font-heading text-5xl md:text-7xl">Gamifying Fandom: The Esports Model</h2>
+                    <p class="text-xl text-gray-600 mt-4 max-w-3xl mx-auto">To create a sustainable engagement platform, we can borrow from the proven success of the esports industry's "Gamification" strategies.</p>
+                </motion.div>
+
+                <div class="mt-20 grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <motion.div class="p-8 border-2 border-gray-100 rounded-2xl" :initial="{ opacity: 0, y: 50 }" :while-in-view="{ opacity: 1, y: 0 }" :viewport="{ once: true }" :transition="{ duration: 0.5, delay: 0.1 }">
+                        <div class="text-6xl text-nba-blue mb-4"><i class="fas fa-gamepad"></i></div>
+                        <h3 class="font-heading text-3xl">Core Mechanics</h3>
+                        <p class="text-gray-600 mt-2">Esports platforms extensively use points, badges, leaderboards, and achievements to drive retention and loyalty, creating powerful and rewarding feedback loops.</p>
+                    </motion.div>
+                     <motion.div class="p-8 border-2 border-gray-100 rounded-2xl" :initial="{ opacity: 0, y: 50 }" :while-in-view="{ opacity: 1, y: 0 }" :viewport="{ once: true }" :transition="{ duration: 0.5, delay: 0.2 }">
+                        <div class="text-6xl text-nba-red mb-4"><i class="fas fa-sync-alt"></i></div>
+                        <h3 class="font-heading text-3xl">Building Participation Cycles</h3>
+                        <p class="text-gray-600 mt-2">The NBA season provides a natural rhythm for gamification. Short-term loops can be built around each game (e.g., score predictions), while long-term arcs can span the entire season (e.g., tracking player milestones).</p>
+                    </motion.div>
+                    <motion.div class="p-8 border-2 border-gray-100 rounded-2xl" :initial="{ opacity: 0, y: 50 }" :while-in-view="{ opacity: 1, y: 0 }" :viewport="{ once: true }" :transition="{ duration: 0.5, delay: 0.3 }">
+                        <div class="text-6xl text-nba-blue mb-4"><i class="fab fa-tiktok"></i></div>
+                        <h3 class="font-heading text-3xl">Case Study: TikTok's "PK Battles"</h3>
+                        <p class="text-gray-600 mt-2">Features like "PK Battles," where creators compete for virtual gifts from viewers, turn passive watching into an active, competitive event. This social pressure and real-time competition can increase creator earnings per stream by over <span class="font-bold text-nba-blue">30%</span>, dramatically boosting engagement.</p>
+                    </motion.div>
+                    <motion.div class="p-8 border-2 border-gray-100 rounded-2xl" :initial="{ opacity: 0, y: 50 }" :while-in-view="{ opacity: 1, y: 0 }" :viewport="{ once: true }" :transition="{ duration: 0.5, delay: 0.4 }">
+                        <div class="text-6xl text-nba-red mb-4"><i class="fas fa-trophy"></i></div>
+                        <h3 class="font-heading text-3xl">Case Study: Esports' "In-Play" Betting</h3>
+                        <p class="text-gray-600 mt-2">Platforms that integrate live odds and prediction markets into esports broadcasts see significantly higher retention. Viewers who participate in these interactive betting pools watch for an average of <span class="font-bold text-nba-red">2.5x longer</span> than non-participating viewers, turning passive consumption into an active investment.</p>
+                    </motion.div>
+                </div>
+
+                <motion.div class="mt-24 text-center"
+                    :initial="{ opacity: 0, y: 50 }" :while-in-view="{ opacity: 1, y: 0 }" :viewport="{ once: true, amount: 0.5 }" :transition="{ duration: 0.6 }">
+                    <h3 class="font-heading text-4xl md:text-5xl text-gray-800">The Untapped Commercial Potential</h3>
+                    <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">The "Battle Pass" model from gaming unlocks a massive, direct-to-fan revenue stream through digital goods—a market ripe for entry.</p>
+                </motion.div>
+
+                <div class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-16 items-center text-center">
+                    <motion.div :initial="{ opacity: 0, scale: 0.8 }" :while-in-view="{ opacity: 1, scale: 1 }" :viewport="{ once: true, amount: 0.6 }" :transition="{ duration: 0.7, delay: 0.2 }">
+                        <h4 class="font-heading medium-giant-text highlight-text-blue">$112B</h4>
+                        <p class="mt-4 text-xl text-gray-700 font-bold">Projected size of the global virtual goods market by 2025.</p>
+                    </motion.div>
+                    <motion.div :initial="{ opacity: 0, scale: 0.8 }" :while-in-view="{ opacity: 1, scale: 1 }" :viewport="{ once: true, amount: 0.6 }" :transition="{ duration: 0.7, delay: 0.4 }">
+                        <h4 class="font-heading medium-giant-text highlight-text-red">$125B</h4>
+                        <p class="mt-4 text-xl text-gray-700 font-bold">Projected size of the digital avatar market by 2030.</p>
+                    </motion.div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 8: The Path Forward -->
+        <section class="relative min-h-screen py-24 px-4 bg-gray-900 text-white">
+            <motion.div class="absolute top-8 right-8 opacity-20 print-hidden" :initial="{ opacity: 0 }" :while-in-view="{ opacity: 0.2 }" :viewport="{ once: true, amount: 0.5 }" :transition="{ duration: 1 }"> <img src="image/new logo.png" alt="ALIV Logo" class="h-12 w-auto brightness-0 invert"> </motion.div>
+            <div class="max-w-6xl mx-auto">
+                <motion.div class="text-center"
+                    :initial="{ opacity: 0, y: 50 }" :while-in-view="{ opacity: 1, y: 0 }" :viewport="{ once: true, amount: 0.8 }" :transition="{ duration: 0.6 }">
+                    <h2 class="font-heading text-5xl md:text-7xl">The Path Forward</h2>
+                    <p class="text-xl text-gray-400 mt-4">A three-pronged strategy to build a future-proof fan ecosystem.</p>
+                </motion.div>
+                
+                <div class="mt-20 space-y-16">
+                    <motion.div class="flex flex-col md:flex-row items-center gap-12"
+                        :initial="{ opacity: 0, x: -100 }" :while-in-view="{ opacity: 1, x: 0 }" :viewport="{ once: true, amount: 0.5 }" :transition="{ duration: 0.8 }">
+                        <div class="text-8xl text-nba-blue w-24 text-center"><i class="fas fa-podcast"></i></div>
+                        <div>
+                            <h3 class="font-heading text-4xl">1. Interactive Live Strategy</h3>
+                            <p class="mt-2 text-lg text-gray-300">
+                                Launch a multi-platform live content strategy focused on interactivity and education. Prioritize TikTok, Twitch, and YouTube. Integrate real-time polls, Q&As, and gamified challenges into every broadcast to maximize engagement and watch time.
+                            </p>
+                        </div>
+                    </motion.div>
+
+                     <motion.div class="flex flex-col md:flex-row-reverse items-center gap-12 text-right"
+                        :initial="{ opacity: 0, x: 100 }" :while-in-view="{ opacity: 1, x: 0 }" :viewport="{ once: true, amount: 0.5 }" :transition="{ duration: 0.8 }">
+                        <div class="text-8xl text-nba-red w-24 text-center"><i class="fas fa-chart-pie"></i></div>
+                        <div>
+                            <h3 class="font-heading text-4xl">2. Central "Insight Hub"</h3>
+                            <p class="mt-2 text-lg text-gray-300">
+                                Establish a dedicated research and analysis team to drive a data-centric content flywheel. Transform deep insights into compelling, "snackable" content formats like short videos ("Why Harden's step-back works") and infographics, tailored for mobile consumption.
+                            </p>
+                        </div>
+                    </motion.div>
+
+                     <motion.div class="flex flex-col md:flex-row items-center gap-12"
+                        :initial="{ opacity: 0, x: -100 }" :while-in-view="{ opacity: 1, x: 0 }" :viewport="{ once: true, amount: 0.5 }" :transition="{ duration: 0.8 }">
+                        <div class="text-8xl text-gray-500 w-24 text-center"><i class="fas fa-clipboard-check"></i></div>
+                        <div>
+                            <h3 class="font-heading text-4xl">3. Redefine Engagement ROI</h3>
+                            <p class="mt-2 text-lg text-gray-300">
+                                Move beyond traditional ratings. Develop a comprehensive "Engagement Scorecard" that measures cross-platform watch time, interaction rates, and fan sentiment. Track direct monetization through platform-native tools to prove the value of the new ecosystem.
+                            </p>
+                        </div>
+                    </motion.div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 9: The ALIV Solution -->
+        <section class="relative py-24 px-4 bg-white">
+             <motion.div class="absolute top-8 right-8 opacity-20 print-hidden" :initial="{ opacity: 0 }" :while-in-view="{ opacity: 0.2 }" :viewport="{ once: true, amount: 0.5 }" :transition="{ duration: 1 }"> <img src="image/new logo.png" alt="ALIV Logo" class="h-12 w-auto"> </motion.div>
+            <div class="max-w-7xl mx-auto">
+                <motion.div class="text-center"
+                    :initial="{ opacity: 0, y: 50 }" :while-in-view="{ opacity: 1, y: 0 }" :viewport="{ once: true, amount: 0.8 }" :transition="{ duration: 0.6 }">
+                    <h2 class="font-heading text-5xl md:text-7xl">The ALIV Solution</h2>
+                    <p class="font-heading text-3xl md:text-5xl text-gray-800 mt-2">Turning <span class="text-nba-red">'Watching'</span> into <span class="text-nba-blue">'Influencing'</span></p>
+                    <p class="text-xl text-gray-600 mt-6 max-w-4xl mx-auto">
+                        Here is the concrete product strategy to bring the vision to life. The core is an AI-powered interactive layer that transforms passive attention into active participation and commercial value, without altering the game itself. This solution focuses on the "golden interactive window": timeouts, free throws, halftime, and all the moments traditional broadcasts ignore.
+                    </p>
+                </motion.div>
+
+                <div class="mt-20 grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <motion.div class="p-8 bg-gray-50 rounded-2xl border" :initial="{ opacity: 0, y: 50 }" :while-in-view="{ opacity: 1, y: 0 }" :viewport="{ once: true }" :transition="{ duration: 0.5, delay: 0.2 }">
+                        <div class="text-6xl text-nba-blue mb-4"><i class="fas fa-microphone-alt"></i></div>
+                        <h3 class="font-heading text-3xl">Pillar 1: Commentary-Driven Engine</h3>
+                        <p class="text-gray-600 mt-2">Our AI doesn't just watch the game—it listens to the commentary and reads the live chat, turning broadcast narratives into real-time interactive events.</p>
+                        <ul class="mt-6 space-y-4">
+                            <li class="font-bold text-lg">Real-time Commentary Capture:</li>
+                            <li class="text-gray-600 -mt-2"><span class="font-bold text-gray-800">Example:</span> When a commentator yells, "What a legendary block!", our AI Co-host instantly triggers a "Hall of Fame Block" visual effect and launches a poll for fans to rate the defensive play.</li>
+                            <li class="font-bold text-lg mt-4">Data-Driven Predictive Gaming:</li>
+                            <li class="text-gray-600 -mt-2"><span class="font-bold text-gray-800">Example:</span> During a critical free throw, the AI launches a quick-fire prediction game: "Will they make both?" Fans participate via chat commands to win points from a sponsor-funded prize pool.</li>
+                        </ul>
+                    </motion.div>
+                     <motion.div class="p-8 bg-gray-50 rounded-2xl border" :initial="{ opacity: 0, y: 50 }" :while-in-view="{ opacity: 1, y: 0 }" :viewport="{ once: true }" :transition="{ duration: 0.5, delay: 0.4 }">
+                        <div class="text-6xl text-nba-red mb-4"><i class="fas fa-users"></i></div>
+                        <h3 class="font-heading text-3xl">Pillar 2: Tribalism-Based Community</h3>
+                        <p class="text-gray-600 mt-2">We amplify the core of sports fandom: tribal identity. Our platform is designed to let fans showcase their allegiance and compete for their team's honor.</p>
+                         <ul class="mt-6 space-y-4">
+                            <li class="font-bold text-lg">Personalized Fan AI Avatars:</li>
+                            <li class="text-gray-600 -mt-2"><span class="font-bold text-gray-800">Example:</span> A Warriors fan enters the stream with an AI avatar wearing an officially licensed virtual Warriors jersey, instantly signaling their allegiance to the entire community.</li>
+                            <li class="font-bold text-lg mt-4">"Team Hype Battle" PK Mode:</li>
+                            <li class="text-gray-600 -mt-2"><span class="font-bold text-gray-800">Example:</span> During halftime, a "Hype Battle" begins. Fans spend interactive points to boost their team's "Hype Meter." The leading team's logo dominates the screen, and the AI Co-host declares, "The Warriors fans are taking over the stream tonight!"</li>
+                        </ul>
+                    </motion.div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 10: Projected Impact -->
+        <section class="relative py-24 px-4 bg-gray-50">
+            <motion.div class="absolute top-8 right-8 opacity-20 print-hidden" :initial="{ opacity: 0 }" :while-in-view="{ opacity: 0.2 }" :viewport="{ once: true, amount: 0.5 }" :transition="{ duration: 1 }"> <img src="image/new logo.png" alt="ALIV Logo" class="h-12 w-auto"> </motion.div>
+            <div class="max-w-7xl mx-auto">
+                <motion.div class="text-center"
+                    :initial="{ opacity: 0, y: 50 }" :while-in-view="{ opacity: 1, y: 0 }" :viewport="{ once: true, amount: 0.8 }" :transition="{ duration: 0.6 }">
+                    <h2 class="font-heading text-5xl md:text-7xl">Projected Impact</h2>
+                    <p class="text-xl text-gray-600 mt-4 max-w-3xl mx-auto">By transforming the viewing experience, the ALIV solution is projected to deliver significant, measurable growth in key areas.</p>
+                </motion.div>
+
+                <div class="mt-20 grid grid-cols-1 md:grid-cols-2 gap-16 items-start text-center">
+                    <motion.div :initial="{ opacity: 0, y: 50 }" :while-in-view="{ opacity: 1, y: 0 }" :viewport="{ once: true, amount: 0.5 }" :transition="{ duration: 0.7, delay: 0.2 }">
+                        <h3 class="font-heading text-4xl text-gray-800">Gen Z Engagement</h3>
+                        <h4 class="font-heading medium-giant-text highlight-text-blue">+150%</h4>
+                        <p class="mt-4 text-xl text-gray-700 font-bold">Projected increase in average watch time per session for viewers under 25.</p>
+                        <p class="mt-2 text-gray-600">By converting passive viewing into active, gamified participation, we directly cater to the preferences of a generation that values interaction over broadcast. This transforms the broadcast into a live event they can influence, not just observe.</p>
+                    </motion.div>
+
+                    <motion.div :initial="{ opacity: 0, y: 50 }" :while-in-view="{ opacity: 1, y: 0 }" :viewport="{ once: true, amount: 0.5 }" :transition="{ duration: 0.7, delay: 0.4 }">
+                        <h3 class="font-heading text-4xl text-gray-800">Digital Viewership & ARPU</h3>
+                        <h4 class="font-heading medium-giant-text highlight-text-red">+40%</h4>
+                        <p class="mt-4 text-xl text-gray-700 font-bold">Projected uplift in total digital audience engagement minutes.</p>
+                        <p class="mt-2 text-gray-600">By monetizing the previously ignored "downtime" during games, we not only capture more attention but also create new, high-margin revenue streams. This boosts the Average Revenue Per User (ARPU) and proves the direct commercial value of a deeply engaged audience.</p>
+                    </motion.div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="py-12 bg-gray-100 text-center">
+            <p class="text-gray-600">The New Court: A Strategic Analysis</p>
+            <p class="text-xs text-gray-400 mt-2">Data sourced from the provided report for demonstration purposes.</p>
+        </footer>
+    </div>
+    
+    <!-- Vue 3 CDN (for simple data binding in chart) -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script type="module">
+        const { createApp, ref } = Vue;
+        const { motion } = window;
+
+        createApp({
+            directives: { motion },
+            setup() {
+                const finalsData = ref([
+                    { year: 2015, matchup: 'Golden State Warriors 4-2 Cleveland Cavaliers', rating: 11.6, viewers: 19.94 },
+                    { year: 2016, matchup: 'Cleveland Cavaliers 4-3 Golden State Warriors', rating: 11.4, viewers: 20.28 },
+                    { year: 2017, matchup: 'Golden State Warriors 4-1 Cleveland Cavaliers', rating: 11.3, viewers: 20.38 },
+                    { year: 2018, matchup: 'Golden State Warriors 4-0 Cleveland Cavaliers', rating: 10.0, viewers: 17.56 },
+                    { year: 2019, matchup: 'Toronto Raptors 4-2 Golden State Warriors', rating: 8.8, viewers: 15.14 },
+                    { year: 2020, matchup: 'Los Angeles Lakers 4-2 Miami Heat', rating: 4.0, viewers: 7.45 },
+                    { year: 2021, matchup: 'Milwaukee Bucks 4-2 Phoenix Suns', rating: 5.2, viewers: 9.91 },
+                    { year: 2022, matchup: 'Golden State Warriors 4-2 Boston Celtics', rating: 6.6, viewers: 12.40 },
+                    { year: 2023, matchup: 'Denver Nuggets 4-1 Miami Heat', rating: 6.1, viewers: 11.64 },
+                    { year: 2024, matchup: 'Boston Celtics 4-1 Dallas Mavericks', rating: 5.8, viewers: 11.31 },
+                ]);
+
+                return { finalsData };
+            }
+        }).mount('#app');
+    </script>
+     
+
+</body>
+</html>
+
